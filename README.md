@@ -34,7 +34,7 @@ Simulations are parameterized by three clinical cohorts, each with fitted growth
 | TR | Imaging-based Recurrent | 1 |
 | CTR | Control | 2 |
 
-Growth rates, apoptosis rates, and testosterone sensitivity (Michaelis-Menten parameters m, n, p) differ across cohorts. See `runs/ABMruns_masterlist_prostatecancer.csv` for all parameter values.
+Growth rates, apoptosis rates, and testosterone sensitivity (Michaelis-Menten parameters m, n, p) differ across cohorts. All cohort parameter values are defined in `config/PhysiCell_settings.xml`. The masterlist CSV specifies which cohort and run configuration to use, and `ABMruns_updatexml.py` updates the XML accordingly before each run.
 
 ---
 
