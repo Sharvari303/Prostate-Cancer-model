@@ -30,8 +30,8 @@ Simulations are parameterized by three clinical cohorts, each with fitted growth
 
 | Cohort | Description | cohort value in XML |
 |---|---|---|
-| BR | Biopsy Resistant | 0 |
-| TR | Treatment Resistant | 1 |
+| BR | Biochemical Recurrent | 0 |
+| TR | Imaging-based Recurrent | 1 |
 | CTR | Control | 2 |
 
 Growth rates, apoptosis rates, and testosterone sensitivity (Michaelis-Menten parameters m, n, p) differ across cohorts. See `runs/ABMruns_masterlist_prostatecancer.csv` for all parameter values.
@@ -40,14 +40,7 @@ Growth rates, apoptosis rates, and testosterone sensitivity (Michaelis-Menten pa
 
 ## Two Simulation Conditions
 
-The two directories differ **only** in mechanical spatial boundary, allowing isolation of the effect of spatial confinement on tumor evolution:
-
-| Condition | Directory | Mechanical boundary | Diffusion domain |
-|---|---|---|---|
-| Unconstrained growth | `ABM_unconstrained/` | ±250 µm (mesh bounding box) | ±250 µm |
-| Spatially confined | `ABM_densepacking/` | ±125 µm (hardcoded in `core/PhysiCell_standard_models.cpp`) | ±250 µm |
-
-In the confined condition, cells are mechanically restricted to a 250×250 µm region while substrate diffusion continues over the full 500×500 µm domain, mimicking tumor growth within a bounded ductal/acinar compartment.
+`ABM_unconstrained/` allows cells to grow freely up to the full ±250 µm mesh boundary. `ABM_densepacking/` restricts cell movement to ±125 µm, mimicking growth within a spatially confined compartment. All other parameters are identical between the two conditions.
 
 ---
 
@@ -79,9 +72,9 @@ make
 
 ### 4. Configure a run from the masterlist
 ```bash
-python3 runs/ABMruns_updatexml.py PhysiCell/config/PhysiCell_settings.xml runs/ABMruns_masterlist_prostatecancer.csv RUN_ID
+python3 ABMruns_updatexml.py /path/to/PhysiCell/config/PhysiCell_settings.xml ABMruns_masterlist_prostatecancer.csv RUN_ID
 ```
-Replace `RUN_ID` with any integer from `ABMruns_masterlist_prostatecancer.csv`.
+Replace `RUN_ID` with any integer from `ABMruns_masterlist_prostatecancer.csv`. Both files are in `runs/`.
 
 ### 5. Run
 ```bash
@@ -117,6 +110,7 @@ ABM_densepacking/                         # Spatially confined simulation files
 
 runs/
   ABMruns_masterlist_prostatecancer.csv   # Full parameter table for all runs
+  ABMruns_updatexml.py                    # Updates PhysiCell XML config for a given Run_ID
 
 analysis/
   ABMruns_PCa_dataanalysis.py             # Main data analysis script
